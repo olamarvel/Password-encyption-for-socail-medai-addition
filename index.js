@@ -13,23 +13,33 @@ app.get("/", (req, res) => {
 app.use(express.static(path.join(__dirname, ".")));
 
 // Endpoint for encrypting the password with shared keys
-app.post("/encrypt", (req, res) => {
-  const { password, key1, key2 } = req.body;
+app.post("/generatePassword", (req, res) => {
+  const { key1, key2 } = req.body;
 
   // Validate inputs
-  if (!password || !key1 || !key2) {
+  if (!key1 || !key2) {
     return res.status(400).json({ error: "Missing required fields." });
   }
+
+  // Generate a random password as random bytes
+  const passwordBytes = crypto.randomBytes(16);
+  const generatedPassword = passwordBytes.toString("hex");
+
+  // Split the password into two parts
+  const halfLength = Math.ceil(generatedPassword.length / 2);
+  const firstHalf = generatedPassword.slice(0, halfLength);
+  const secondHalf = generatedPassword.slice(halfLength);
 
   // Derive 32-byte keys using SHA-256
   const key1_32bytes = crypto.createHash('sha256').update(key1).digest();
   const key2_32bytes = crypto.createHash('sha256').update(key2).digest();
 
-  // Encrypt the password
-  const encryptedPassword1 = encryptPassword(password, key1_32bytes);
-  const encryptedPassword2 = encryptPassword(password, key2_32bytes);
+  // Encrypt the password halves
+  const encryptedPassword1 = encryptPassword(firstHalf, key1_32bytes);
+  const encryptedPassword2 = encryptPassword(secondHalf, key2_32bytes);
 
   res.json({
+    generatedPassword,
     iv1: encryptedPassword1.iv,
     encryptedPassword1: encryptedPassword1.encryptedPassword,
     key1,
@@ -37,9 +47,7 @@ app.post("/encrypt", (req, res) => {
     encryptedPassword2: encryptedPassword2.encryptedPassword,
     key2,
   });
-});
-
-// Endpoint for decrypting the password using the user-provided IVs and the shared keys
+})// Endpoint for decrypting the password using the user-provided IVs and the shared keys
 app.post("/decrypt", (req, res) => {
   const { iv1, encryptedPassword1, key1, iv2, encryptedPassword2, key2 } = req.body;
 

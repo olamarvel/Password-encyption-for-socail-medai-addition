@@ -1,3 +1,4 @@
+// Previous JS code (unchanged)
 const encryptionPage = document.getElementById("encryptionPage");
 const decryptionPage = document.getElementById("decryptionPage");
 const encryptionTab = document.getElementById("encryptionTab");
@@ -27,24 +28,25 @@ const decryptionForm = document.getElementById("decryptionForm");
 encryptionForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const password = document.getElementById("password").value;
   const key1 = document.getElementById("key1").value;
   const key2 = document.getElementById("key2").value;
 
-  const response = await fetch("/encrypt", {
+  const response = await fetch("/generatePassword", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ password, key1, key2 }),
+    body: JSON.stringify({ key1, key2 }),
   });
 
   const data = await response.json();
-  document.getElementById("encryptedPassword1").innerText = data.encryptedPassword1.encryptedPassword;
-  document.getElementById("encryptedPassword2").innerText = data.encryptedPassword2.encryptedPassword;
-  document.getElementById("iv1").innerText = data.encryptedPassword1.iv;
-  document.getElementById("iv2").innerText = data.encryptedPassword2.iv;
+  document.getElementById("generatedPassword").innerHTML = 'x'.repeat(data.generatedPassword.length) + '<span class="display-icon">👁️</span>';
+  document.getElementById("encryptedPassword1").innerHTML = 'x'.repeat(data.encryptedPassword1.length) + '<span class="display-icon">👁️</span>';
+  document.getElementById("encryptedPassword2").innerHTML = 'x'.repeat(data.encryptedPassword2.length) + '<span class="display-icon">👁️</span>';
+  document.getElementById("iv1").innerHTML = 'x'.repeat(data.iv1.length) + '<span class="display-icon">👁️</span>';
+  document.getElementById("iv2").innerHTML = 'x'.repeat(data.iv2.length) + '<span class="display-icon">👁️</span>';
 
+  document.getElementById("generatedPasswordDiv").classList.remove("hidden");
   document.getElementById("encryptedPasswords").classList.remove("hidden");
   decryptionPage.classList.add("hidden");
 });
@@ -74,6 +76,11 @@ decryptionForm.addEventListener("submit", async (event) => {
 });
 
 // Copy Button Functionality
+document.getElementById("copyGeneratedPassword").addEventListener("click", () => {
+  const generatedPassword = document.getElementById("generatedPassword").innerText;
+  copyToClipboard(generatedPassword);
+});
+
 document.getElementById("copyEncryptedPassword1").addEventListener("click", () => {
   const encryptedPassword1 = document.getElementById("encryptedPassword1").innerText;
   copyToClipboard(encryptedPassword1);
@@ -84,19 +91,29 @@ document.getElementById("copyEncryptedPassword2").addEventListener("click", () =
   copyToClipboard(encryptedPassword2);
 });
 
+document.getElementById("copyIV1").addEventListener("click", () => {
+  const iv1 = document.getElementById("iv1").innerText;
+  copyToClipboard(iv1);
+});
+
+document.getElementById("copyIV2").addEventListener("click", () => {
+  const iv2 = document.getElementById("iv2").innerText;
+  copyToClipboard(iv2);
+});
+
 // Download Button Functionality
-document.getElementById("downloadEncryption1").addEventListener("click", () => {
-  downloadResult("encryption1_result.txt", getEncryptionResult(1));
+document.getElementById("downloadEncryptions").addEventListener("click", () => {
+  const encryptionResult = getEncryptionResult();
+  downloadResult("encryption_result.txt", encryptionResult);
 });
 
-document.getElementById("downloadEncryption2").addEventListener("click", () => {
-  downloadResult("encryption2_result.txt", getEncryptionResult(2));
-});
-
-function getEncryptionResult(encryptionNumber) {
-  const passwordElement = document.getElementById(`encryptedPassword${encryptionNumber}`);
-  const ivElement = document.getElementById(`iv${encryptionNumber}`);
-  return `Encrypted Password ${encryptionNumber}: ${passwordElement.innerText}\nIV ${encryptionNumber}: ${ivElement.innerText}`;
+function getEncryptionResult() {
+  const generatedPassword = document.getElementById("generatedPassword").innerText;
+  const passwordElement1 = document.getElementById("encryptedPassword1");
+  const ivElement1 = document.getElementById("iv1");
+  const passwordElement2 = document.getElementById("encryptedPassword2");
+  const ivElement2 = document.getElementById("iv2");
+  return `Generated Password: ${generatedPassword}\nEncrypted Password 1: ${passwordElement1.innerText}\nIV 1: ${ivElement1.innerText}\nEncrypted Password 2: ${passwordElement2.innerText}\nIV 2: ${ivElement2.innerText}`;
 }
 
 function copyToClipboard(text) {
@@ -119,4 +136,3 @@ function downloadResult(filename, text) {
   element.click();
   document.body.removeChild(element);
 }
-

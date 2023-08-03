@@ -5,6 +5,32 @@
   <meta charset="utf-8">
   <title>Password Encryption and Decryption</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Add this CSS to your existing styles or link to an external CSS file */
+
+    /* Style for the display icon */
+    .display-icon {
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+
+    /* Show the content when the parent element has the class "show-content" */
+    .show-content span {
+      display: none;
+    }
+
+    .show-content:after {
+      content: attr(data-content);
+      display: inline;
+    }
+
+    /* Prevent content overflow */
+    #encryptionPage,
+    #decryptionPage {
+      max-height: 80vh;
+      overflow: auto;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-200 min-h-screen flex flex-col items-center justify-center">
@@ -21,10 +47,6 @@
     <div id="encryptionPage">
       <form id="encryptionForm">
         <div class="mb-4">
-          <label for="password" class="block font-bold mb-2">Password:</label>
-          <input type="password" id="password" name="password" class="w-full border rounded px-3 py-2" required>
-        </div>
-        <div class="mb-4">
           <label for="key1" class="block font-bold mb-2">Key 1:</label>
           <input type="password" id="key1" name="key1" class="w-full border rounded px-3 py-2" required>
         </div>
@@ -32,19 +54,26 @@
           <label for="key2" class="block font-bold mb-2">Key 2:</label>
           <input type="password" id="key2" name="key2" class="w-full border rounded px-3 py-2" required>
         </div>
-        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Encrypt</button>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Generate Password and Encrypt</button>
       </form>
 
-      <!-- Encrypted Password Display -->
+      <!-- Generated Password Display -->
+      <div id="generatedPasswordDiv" class="hidden mt-4">
+        <p>Generated Password: <span class="show-content" data-content="xes" id="generatedPassword"></span><span class="display-icon">👁️</span></p>
+        <button id="copyGeneratedPassword" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy Generated Password</button>
+      </div>
+
+      <!-- Encrypted Passwords Display -->
       <div id="encryptedPasswords" class="hidden mt-4">
-        <p>Encrypted Password 1: <span id="encryptedPassword1"></span></p>
-        <p>IV 1: <span id="iv1"></span></p>
-        <p>Encrypted Password 2: <span id="encryptedPassword2"></span></p>
-        <p>IV 2: <span id="iv2"></span></p>
+        <p>Encrypted Password 1: <span class="show-content" data-content="xes" id="encryptedPassword1"></span><span class="display-icon">👁️</span></p>
+        <p>IV 1: <span class="show-content" data-content="xes" id="iv1"></span><span class="display-icon">👁️</span></p>
+        <p>Encrypted Password 2: <span class="show-content" data-content="xes" id="encryptedPassword2"></span><span class="display-icon">👁️</span></p>
+        <p>IV 2: <span class="show-content" data-content="xes" id="iv2"></span><span class="display-icon">👁️</span></p>
+        <button id="copyIV1" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy IV 1</button>
+        <button id="copyIV2" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy IV 2</button>
         <button id="copyEncryptedPassword1" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy Encrypted Password 1</button>
         <button id="copyEncryptedPassword2" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy Encrypted Password 2</button>
-        <button id="downloadEncryption1" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Download Encryption 1</button>
-        <button id="downloadEncryption2" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Download Encryption 2</button>
+        <button id="downloadEncryptions" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Download Encryptions</button>
       </div>
     </div>
 
@@ -84,9 +113,10 @@
 
       <!-- Decrypted Password Display -->
       <div id="decryptedPassword" class="hidden mt-4">
-        <p>Decrypted Password: <span id="decryptedPasswordValue"></span></p>
+        <p>Decrypted Password: <span id="decryptedPasswordValue" class="select-all"></span></p>
       </div>
     </div>
+
   </div>
 
   <script src="frontend.js"></script>
