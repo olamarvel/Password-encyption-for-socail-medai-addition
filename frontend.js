@@ -11,7 +11,7 @@ encryptionTab.addEventListener("click", () => {
   encryptionTab.classList.remove("bg-blue-200");
   decryptionTab.classList.remove("bg-blue-500", "text-white");
   decryptionTab.classList.add("bg-blue-200");
-});
+}); 
 
 decryptionTab.addEventListener("click", () => {
   encryptionPage.classList.add("hidden");
