@@ -66,7 +66,7 @@ app.post("/decrypt", (req, res) => {
 
   res.json({ decryptedPassword: decryptedPassword1 + decryptedPassword2 });
 });
-
+//undefined
 // Helper function to encrypt the password with a key and IV
 function encryptPassword(password, key) {
   const algorithm = "aes-256-cbc";

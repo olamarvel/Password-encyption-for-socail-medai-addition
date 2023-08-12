@@ -12,6 +12,14 @@ const elements = {
   iv1: document.getElementById("iv1"),
   iv2: document.getElementById("iv2"),
   decryptedPasswordValue: document.getElementById("decryptedPasswordValue"),
+  input: {
+    encryptedPassword1: document.getElementById("input-encryptedPassword1"),
+    encryptedPassword2: document.getElementById("input-encryptedPassword2"),
+    iv1: document.getElementById("input-iv1"),
+    iv2: document.getElementById("input-iv2"),
+    key1: document.getElementById("input-decryptionKey1"),
+    key2: document.getElementById("input-decryptionKey2"),
+  },
   copyButtons: {
     generatedPassword: document.getElementById("copyGeneratedPassword"),
     encryptedPassword1: document.getElementById("copyEncryptedPassword1"),
@@ -30,12 +38,14 @@ const classes = {
 };
 
 // Define a global variable to store the server response
-let serverResponse = null;
+let serverResponse = {};
 
 // Define event listeners
 elements.encryptionTab.addEventListener("click", () => toggleTab(true));
 elements.decryptionTab.addEventListener("click", () => toggleTab(false));
 elements.encryptionForm.addEventListener("submit", (event) => handleFormSubmit(event, "/generatePassword", true));
+
+//
 elements.decryptionForm.addEventListener("submit", (event) => handleFormSubmit(event, "/decrypt", false));
 Object.keys(elements.copyButtons).forEach((key) => {
   elements.copyButtons[key].addEventListener("click", () => copyToClipboard(serverResponse[key]));
@@ -60,7 +70,8 @@ async function handleFormSubmit(event, url, isEncryption) {
   event.preventDefault();
 
   const formData = getFormData(isEncryption);
-  serverResponse = await fetchData(url, formData);
+  serverResponse = { ... await fetchData(url, formData), ...serverResponse };
+
   updateDOM(serverResponse, isEncryption);
 }
 
@@ -83,25 +94,24 @@ function getFormData(isEncryption) {
       key2: document.getElementById("key2").value,
     };
   } else {
-    return {
-      iv1: document.getElementById("iv1").value,
-      encryptedPassword1: document.getElementById("encryptedPassword1").value,
-      decryptionKey1: document.getElementById("decryptionKey1").value,
-      iv2: document.getElementById("iv2").value,
-      encryptedPassword2: document.getElementById("encryptedPassword2").value,
-      decryptionKey2: document.getElementById("decryptionKey2").value,
-    };
+    const decrytion = {}
+    for (const field in elements.input) {
+      decrytion[field] = elements.input[field].value
+    }
+    console.log(decrytion)
+    return decrytion
   }
 }
 
 // Update DOM function
 function updateDOM(data, isEncryption) {
   if (isEncryption) {
-    elements.generatedPassword.innerHTML = 'x'.repeat(data.generatedPassword.length) + '<span class="display-icon">👁️</span>';
-    elements.encryptedPassword1.innerHTML = 'x'.repeat(data.encryptedPassword1.length) + '<span class="display-icon">👁️</span>';
-    elements.encryptedPassword2.innerHTML = 'x'.repeat(data.encryptedPassword2.length) + '<span class="display-icon">👁️</span>';
-    elements.iv1.innerHTML = 'x'.repeat(data.iv1.length) + '<span class="display-icon">👁️</span>';
-    elements.iv2.innerHTML = 'x'.repeat(data.iv2.length) + '<span class="display-icon">👁️</span>';
+    elements.generatedPassword.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
+    elements.encryptedPassword1.innerHTML =
+      '.'.repeat(3) + '<span class="display-icon">👁️</span>';
+    elements.encryptedPassword2.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
+    elements.iv1.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
+    elements.iv2.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
 
     document.getElementById("generatedPasswordDiv").classList.remove(classes.hidden);
     document.getElementById("encryptedPasswords").classList.remove(classes.hidden);
@@ -147,6 +157,6 @@ function downloadResult(filename1, text1, filename2, text2) {
 // Get encryption result function 
 function getEncryptionResult() {
   const result1 = `Generated Password: ${serverResponse.generatedPassword}\nEncrypted Password 1: ${serverResponse.encryptedPassword1}\nIV 1: ${serverResponse.iv1}`;
-  const result2 = `Generated Password: ${serverResponse.generatedPassword}\nEncrypted Password 2: ${serverResponse.encryptedPassword2}\nIV 2: ${serverResponse.iv2}`;
+  const result2 = `Encrypted Password 2: ${serverResponse.encryptedPassword2}\nIV 2: ${serverResponse.iv2}`;
   return [result1, result2];
 }
