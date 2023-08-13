@@ -6,6 +6,9 @@
   <title>How to Use BFS - BFS</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">     
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="/manifest.json">
+<link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <meta name="theme-color" content="#000000">
 
 </head>
 
@@ -54,6 +57,20 @@
       <p>Your feedback is invaluable in shaping BFS for the better. By integrating BFS into your comprehensive approach to social media management, you can experience the freedom of mindful online interactions.</p>
     </div>
   </div>
+  <script>
+  // Check if service workers are supported by the browser
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
 </body>
 
 </html>
