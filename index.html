@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Password Encryption and Decryption</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     /* Add this CSS to your existing styles or link to an external CSS file */
@@ -60,16 +61,16 @@
 
       <!-- Generated Password Display -->
       <div id="generatedPasswordDiv" class="hidden mt-4">
-        <p>Generated Password: <span class="show-content" id="generatedPassword"></span><span class="d isplay-icon">👁️</span></p>
+        <p>Generated Password: <span class="show-content" id="generatedPassword"></span></p>
         <button id="copyGeneratedPassword" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy Generated Password</button>
       </div>
 
       <!-- Encrypted Passwords Display -->
       <div id="encryptedPasswords" class="hidden mt-4">
-        <p>Encrypted Password 1: <span class="show-content" id="encryptedPassword1"></span><span class="display-icon">👁️</span></p>
-        <p>IV 1: <span class="show-content" id="iv1"></span><span class="display-icon">👁️</span></p>
-        <p>Encrypted Password 2: <span class="show-content" id="encryptedPassword2"></span><span class="display-icon">👁️</span></p>
-        <p>IV 2: <span class="show-content" id="iv2"></span><span class="display-icon">👁️</span></p>
+        <p>Encrypted Password 1: <span class="show-content" id="encryptedPassword1"></span></p>
+        <p>IV 1: <span class="show-content" id="iv1"></span></p>
+        <p>Encrypted Password 2: <span class="show-content" id="encryptedPassword2"></span></p>
+        <p>IV 2: <span class="show-content" id="iv2"></span></p>
         <button id="copyIV1" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy IV 1</button>
         <button id="copyIV2" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy IV 2</button>
         <button id="copyEncryptedPassword1" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy Encrypted Password 1</button>

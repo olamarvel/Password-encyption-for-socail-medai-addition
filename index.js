@@ -6,7 +6,20 @@ const path = require("path");
 app.use(express.json());
 
 app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "home.html"));
+});
+
+app.get("/app", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
+});
+app.get("/terms", (req, res) => {
+  res.sendFile(path.join(__dirname, "temps.html"));
+});
+app.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname, "privacy.html"));
+});
+app.get("/how-to-use", (req, res) => {
+  res.sendFile(path.join(__dirname, "how-to-use.html"));
 });
 
 // Serve the frontend JavaScript file and Tailwind CSS

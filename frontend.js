@@ -106,12 +106,12 @@ function getFormData(isEncryption) {
 // Update DOM function
 function updateDOM(data, isEncryption) {
   if (isEncryption) {
-    elements.generatedPassword.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
+    elements.generatedPassword.innerHTML = '.'.repeat(3);
     elements.encryptedPassword1.innerHTML =
-      '.'.repeat(3) + '<span class="display-icon">👁️</span>';
-    elements.encryptedPassword2.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
-    elements.iv1.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
-    elements.iv2.innerHTML = '.'.repeat(3) + '<span class="display-icon">👁️</span>';
+      '.'.repeat(3) ;
+    elements.encryptedPassword2.innerHTML = '.'.repeat(3) ;
+    elements.iv1.innerHTML = '.'.repeat(3);
+    elements.iv2.innerHTML = '.'.repeat(3);
 
     document.getElementById("generatedPasswordDiv").classList.remove(classes.hidden);
     document.getElementById("encryptedPasswords").classList.remove(classes.hidden);
