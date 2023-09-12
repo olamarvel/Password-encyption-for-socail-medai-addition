@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>BFS - Take Control of Your Social Media Usage</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/manifest.json">
+<link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <meta name="theme-color" content="#000000">
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200 min-h-screen flex flex-col items-center justify-center">
+  <div class="w-full max-w-md bg-white p-6 rounded shadow-lg">
+    <h1 class="text-2xl font-bold mb-6 text-center">Welcome to BFS - BeFreeSocially</h1>
+
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold mb-3">About BFS - BeFreeSocially</h2>
+      <p>BFS is an innovative app designed to help you manage your social media usage and promote healthier online habits. With encryption and thoughtful delays, BFS encourages intentional interactions.</p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold mb-3">How to Use BFS</h2>
+      <p>Learn how to effectively use BFS by following our guide on how to control your social media addiction and regain digital balance.</p>
+      <a href="/how-to-use" class="text-blue-500 hover:underline">Learn More</a>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold mb-3">Terms and Privacy</h2>
+      <p>Before proceeding, please review our <a href="/terms" class="text-blue-500 hover:underline">Terms and Conditions</a> and <a href="/privacy" class="text-blue-500 hover:underline">Privacy Policy</a>.</p>
+      <label class="mt-2">
+        <input type="checkbox" id="readTermsCheckbox">
+        I have read and agree to the <a href="/terms" class="text-blue-500 hover:underline">Terms and Conditions</a> and <a href="/privacy" class="text-blue-500 hover:underline">Privacy Policy</a>.
+      </label>
+    </div>
+
+    <button id="startAppButton" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+      disabled>Start BFS App</button>
+
+  </div>
+
+  <script>
+    // Enable the Start App button when the checkbox is checked
+    const readTermsCheckbox = document.getElementById('readTermsCheckbox');
+    const startAppButton = document.getElementById('startAppButton');
+    
+    readTermsCheckbox.addEventListener('change', () => {
+      startAppButton.disabled = !readTermsCheckbox.checked;
+    });
+    
+    startAppButton.addEventListener('click', () => {
+      // Redirect the user to the /app endpoint
+      window.location.href = '/app';
+    });
+  </script>
+  <script>
+  // Check if service workers are supported by the browser
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
+
+</body>
+
+</html>

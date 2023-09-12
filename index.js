@@ -6,7 +6,20 @@ const path = require("path");
 app.use(express.json());
 
 app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "home.html"));
+});
+
+app.get("/app", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
+});
+app.get("/terms", (req, res) => {
+  res.sendFile(path.join(__dirname, "temps.html"));
+});
+app.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname, "privacy.html"));
+});
+app.get("/how-to-use", (req, res) => {
+  res.sendFile(path.join(__dirname, "how-to-use.html"));
 });
 
 // Serve the frontend JavaScript file and Tailwind CSS
@@ -66,7 +79,7 @@ app.post("/decrypt", (req, res) => {
 
   res.json({ decryptedPassword: decryptedPassword1 + decryptedPassword2 });
 });
-
+//undefined
 // Helper function to encrypt the password with a key and IV
 function encryptPassword(password, key) {
   const algorithm = "aes-256-cbc";

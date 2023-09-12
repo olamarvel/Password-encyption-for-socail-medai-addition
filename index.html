@@ -4,7 +4,12 @@
 <head>
   <meta charset="utf-8">
   <title>Password Encryption and Decryption</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="/manifest.json">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <meta name="theme-color" content="#000000">
+
   <style>
     /* Add this CSS to your existing styles or link to an external CSS file */
 
@@ -48,28 +53,29 @@
     <div id="encryptionPage">
       <form id="encryptionForm">
         <div class="mb-4">
-          <label for="key1" class="block font-bold mb-2">Key 1:</label>
+          <label for="key1" class="block font-bold mb-2">Host:</label>
           <input type="password" id="key1" name="key1" class="w-full border rounded px-3 py-2" required>
         </div>
         <div class="mb-4">
-          <label for="key2" class="block font-bold mb-2">Key 2:</label>
+          <label for="key2" class="block font-bold mb-2">Supervisor:</label>
           <input type="password" id="key2" name="key2" class="w-full border rounded px-3 py-2" required>
         </div>
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Generate Password and Encrypt</button>
       </form>
+      
 
       <!-- Generated Password Display -->
       <div id="generatedPasswordDiv" class="hidden mt-4">
-        <p>Generated Password: <span class="show-content" data-content="xes" id="generatedPassword"></span><span class="display-icon">👁️</span></p>
+        <p>Generated Password: <span class="show-content" id="generatedPassword"></span></p>
         <button id="copyGeneratedPassword" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy Generated Password</button>
       </div>
 
       <!-- Encrypted Passwords Display -->
       <div id="encryptedPasswords" class="hidden mt-4">
-        <p>Encrypted Password 1: <span class="show-content" data-content="xes" id="encryptedPassword1"></span><span class="display-icon">👁️</span></p>
-        <p>IV 1: <span class="show-content" data-content="xes" id="iv1"></span><span class="display-icon">👁️</span></p>
-        <p>Encrypted Password 2: <span class="show-content" data-content="xes" id="encryptedPassword2"></span><span class="display-icon">👁️</span></p>
-        <p>IV 2: <span class="show-content" data-content="xes" id="iv2"></span><span class="display-icon">👁️</span></p>
+        <p>Encrypted Password 1: <span class="show-content" id="encryptedPassword1"></span></p>
+        <p>IV 1: <span class="show-content" id="iv1"></span></p>
+        <p>Encrypted Password 2: <span class="show-content" id="encryptedPassword2"></span></p>
+        <p>IV 2: <span class="show-content" id="iv2"></span></p>
         <button id="copyIV1" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy IV 1</button>
         <button id="copyIV2" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy IV 2</button>
         <button id="copyEncryptedPassword1" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 mt-2">Copy Encrypted Password 1</button>
@@ -83,30 +89,30 @@
       <form id="decryptionForm">
         <div class="mb-4">
           <label for="iv1" class="block font-bold mb-2">IV 1:</label>
-          <input type="text" id="iv1" name="iv1" class="w-full border rounded px-3 py-2" required>
+          <input type="text" id="input-iv1" name="iv1" class="w-full border rounded px-3 py-2" required>
         </div>
         <div class="mb-4">
           <label for="encryptedPassword1" class="block font-bold mb-2">Encrypted Password 1:</label>
-          <input type="text" id="encryptedPassword1" name="encryptedPassword1" class="w-full border rounded px-3 py-2"
+          <input type="text" id="input-encryptedPassword1" name="encryptedPassword1" class="w-full border rounded px-3 py-2"
             required>
         </div>
         <div class="mb-4">
-          <label for="decryptionKey1" class="block font-bold mb-2">Decryption Key 1:</label>
-          <input type="password" id="decryptionKey1" name="decryptionKey1" class="w-full border rounded px-3 py-2"
+          <label for="decryptionKey1" class="block font-bold mb-2">Decryption Key(Host):</label>
+          <input type="password" id="input-decryptionKey1" name="decryptionKey1" class="w-full border rounded px-3 py-2"
             required>
         </div>
         <div class="mb-4">
           <label for="iv2" class="block font-bold mb-2">IV 2:</label>
-          <input type="text" id="iv2" name="iv2" class="w-full border rounded px-3 py-2" required>
+          <input type="text" id="input-iv2" name="iv2" class="w-full border rounded px-3 py-2" required>
         </div>
         <div class="mb-4">
           <label for="encryptedPassword2" class="block font-bold mb-2">Encrypted Password 2:</label>
-          <input type="text" id="encryptedPassword2" name="encryptedPassword2" class="w-full border rounded px-3 py-2"
+          <input type="text" id="input-encryptedPassword2" name="encryptedPassword2" class="w-full border rounded px-3 py-2"
             required>
         </div>
         <div class="mb-4">
-          <label for="decryptionKey2" class="block font-bold mb-2">Decryption Key 2:</label>
-          <input type="password" id="decryptionKey2" name="decryptionKey2" class="w-full border rounded px-3 py-2"
+          <label for="decryptionKey2" class="block font-bold mb-2">Decryption Key(Supervisor):</label>
+          <input type="password" id="input-decryptionKey2" name="decryptionKey2" class="w-full border rounded px-3 py-2"
             required>
         </div>
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Decrypt</button>
@@ -119,7 +125,20 @@
     </div>
 
   </div>
-
+<script>
+  // Check if service workers are supported by the browser
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
   <script src="frontend.js"></script>
   <script async src="https://wispertracker.onrender.com/tracker.js" data-ackee-server="https://wispertracker.onrender.com" data-ackee-domain-id="ec2e5246-84ae-4425-b666-40c1621a6a6d"></script>
 </body>
