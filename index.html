@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <title>Password Encryption and Decryption</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/manifest.json">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
-    <meta name="theme-color" content="#000000">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+  <meta name="theme-color" content="#000000">
 
   <style>
     /* Add this CSS to your existing styles or link to an external CSS file */
@@ -37,6 +37,8 @@
     }
   </style>
 
+  <script async src="https://wispertracker.onrender.com/tracker.js" data-ackee-server="https://wispertracker.onrender.com" data-ackee-domain-id="ec2e5246-84ae-4425-b666-40c1621a6a6d" data-ackee-opts='{ "ignoreLocalhost": false , "detailed": true , "ignoreOwnVisits": false}'></script>
+
 </head>
 
 <body class="bg-gray-200 min-h-screen flex flex-col items-center justify-center">
@@ -62,7 +64,7 @@
         </div>
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Generate Password and Encrypt</button>
       </form>
-      
+
 
       <!-- Generated Password Display -->
       <div id="generatedPasswordDiv" class="hidden mt-4">
@@ -93,13 +95,11 @@
         </div>
         <div class="mb-4">
           <label for="encryptedPassword1" class="block font-bold mb-2">Encrypted Password 1:</label>
-          <input type="text" id="input-encryptedPassword1" name="encryptedPassword1" class="w-full border rounded px-3 py-2"
-            required>
+          <input type="text" id="input-encryptedPassword1" name="encryptedPassword1" class="w-full border rounded px-3 py-2" required>
         </div>
         <div class="mb-4">
           <label for="decryptionKey1" class="block font-bold mb-2">Decryption Key(Host):</label>
-          <input type="password" id="input-decryptionKey1" name="decryptionKey1" class="w-full border rounded px-3 py-2"
-            required>
+          <input type="password" id="input-decryptionKey1" name="decryptionKey1" class="w-full border rounded px-3 py-2" required>
         </div>
         <div class="mb-4">
           <label for="iv2" class="block font-bold mb-2">IV 2:</label>
@@ -107,13 +107,11 @@
         </div>
         <div class="mb-4">
           <label for="encryptedPassword2" class="block font-bold mb-2">Encrypted Password 2:</label>
-          <input type="text" id="input-encryptedPassword2" name="encryptedPassword2" class="w-full border rounded px-3 py-2"
-            required>
+          <input type="text" id="input-encryptedPassword2" name="encryptedPassword2" class="w-full border rounded px-3 py-2" required>
         </div>
         <div class="mb-4">
           <label for="decryptionKey2" class="block font-bold mb-2">Decryption Key(Supervisor):</label>
-          <input type="password" id="input-decryptionKey2" name="decryptionKey2" class="w-full border rounded px-3 py-2"
-            required>
+          <input type="password" id="input-decryptionKey2" name="decryptionKey2" class="w-full border rounded px-3 py-2" required>
         </div>
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Decrypt</button>
       </form>
@@ -125,20 +123,20 @@
     </div>
 
   </div>
-<script>
-  // Check if service workers are supported by the browser
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(registration => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(error => {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
-  }
-</script>
+  <script>
+    // Check if service workers are supported by the browser
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
   <script src="frontend.js"></script>
   <script async src="https://wispertracker.onrender.com/tracker.js" data-ackee-server="https://wispertracker.onrender.com" data-ackee-domain-id="ec2e5246-84ae-4425-b666-40c1621a6a6d"></script>
 </body>

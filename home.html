@@ -4,12 +4,13 @@
 <head>
   <meta charset="utf-8">
   <title>BFS - Take Control of Your Social Media Usage</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="/manifest.json">
-<link rel="shortcut icon" type="image/png" href="/favicon.png"/>
-    <meta name="theme-color" content="#000000">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+  <meta name="theme-color" content="#000000">
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script async src="https://wispertracker.onrender.com/tracker.js" data-ackee-server="https://wispertracker.onrender.com" data-ackee-domain-id="ec2e5246-84ae-4425-b666-40c1621a6a6d" data-ackee-opts='{ "ignoreLocalhost": false , "detailed": true , "ignoreOwnVisits": false}'></script>
 </head>
 
 <body class="bg-gray-200 min-h-screen flex flex-col items-center justify-center">
@@ -36,8 +37,7 @@
       </label>
     </div>
 
-    <button id="startAppButton" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-      disabled>Start BFS App</button>
+    <button id="startAppButton" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" disabled>Start BFS App</button>
 
   </div>
 
@@ -45,30 +45,30 @@
     // Enable the Start App button when the checkbox is checked
     const readTermsCheckbox = document.getElementById('readTermsCheckbox');
     const startAppButton = document.getElementById('startAppButton');
-    
+
     readTermsCheckbox.addEventListener('change', () => {
       startAppButton.disabled = !readTermsCheckbox.checked;
     });
-    
+
     startAppButton.addEventListener('click', () => {
       // Redirect the user to the /app endpoint
       window.location.href = '/app';
     });
   </script>
   <script>
-  // Check if service workers are supported by the browser
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(registration => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(error => {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
-  }
-</script>
+    // Check if service workers are supported by the browser
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
 
 </body>
 
